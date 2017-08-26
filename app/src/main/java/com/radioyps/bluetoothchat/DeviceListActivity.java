@@ -32,7 +32,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.radioyps.common.logger.Log;
+import com.radioyps.common.logger.BtChaterLog;
 
 import java.util.Set;
 
@@ -45,7 +45,7 @@ import java.util.Set;
 public class DeviceListActivity extends Activity {
 
     /**
-     * Tag for Log
+     * Tag for BtChaterLog
      */
     private static final String TAG = "DeviceListActivity";
 
@@ -143,7 +143,7 @@ public class DeviceListActivity extends Activity {
      * Start device discover with the BluetoothAdapter
      */
     private void doDiscovery() {
-        Log.d(TAG, "doDiscovery()");
+        BtChaterLog.d(TAG, "doDiscovery()");
 
         // Indicate scanning in the title
         setProgressBarIndeterminateVisibility(true);

@@ -42,7 +42,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.radioyps.common.logger.Log;
+import com.radioyps.common.logger.BtChaterLog;
 
 /**
  * This fragment controls Bluetooth to communicate with other devices.
@@ -157,7 +157,7 @@ public class BluetoothChatFragment extends Fragment {
      * Set up the UI and background operations for chat.
      */
     private void setupChat() {
-        Log.d(TAG, "setupChat()");
+        BtChaterLog.d(TAG, "setupChat()");
 
         // Initialize the array adapter for the conversation thread
         mConversationArrayAdapter = new ArrayAdapter<String>(getActivity(), R.layout.message);
@@ -330,12 +330,14 @@ public class BluetoothChatFragment extends Fragment {
             case REQUEST_CONNECT_DEVICE_SECURE:
                 // When DeviceListActivity returns with a device to connect
                 if (resultCode == Activity.RESULT_OK) {
+                    BtChaterLog.d(TAG, "onActivityResult()>> start Secure connetiong");
                     connectDevice(data, true);
                 }
                 break;
             case REQUEST_CONNECT_DEVICE_INSECURE:
                 // When DeviceListActivity returns with a device to connect
                 if (resultCode == Activity.RESULT_OK) {
+                    BtChaterLog.d(TAG, "onActivityResult()>> start a NOT Secure connetiong");
                     connectDevice(data, false);
                 }
                 break;
@@ -343,10 +345,11 @@ public class BluetoothChatFragment extends Fragment {
                 // When the request to enable Bluetooth returns
                 if (resultCode == Activity.RESULT_OK) {
                     // Bluetooth is now enabled, so set up a chat session
+                    BtChaterLog.d(TAG, "onActivityResult()>> just Enable BT, let's setup... ");
                     setupChat();
                 } else {
                     // User did not enable Bluetooth or an error occurred
-                    Log.d(TAG, "BT not enabled");
+                    BtChaterLog.d(TAG, "BT not enabled");
                     Toast.makeText(getActivity(), R.string.bt_not_enabled_leaving,
                             Toast.LENGTH_SHORT).show();
                     getActivity().finish();
@@ -381,17 +384,21 @@ public class BluetoothChatFragment extends Fragment {
             case R.id.secure_connect_scan: {
                 // Launch the DeviceListActivity to see devices and do scan
                 Intent serverIntent = new Intent(getActivity(), DeviceListActivity.class);
+
+                BtChaterLog.d(TAG, "onOptionsItemSelected()>> start Secure connetiong");
                 startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE_SECURE);
                 return true;
             }
             case R.id.insecure_connect_scan: {
                 // Launch the DeviceListActivity to see devices and do scan
                 Intent serverIntent = new Intent(getActivity(), DeviceListActivity.class);
+                BtChaterLog.d(TAG, "onOptionsItemSelected()>> start InSecure connetiong");
                 startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE_INSECURE);
                 return true;
             }
             case R.id.discoverable: {
                 // Ensure this device is discoverable by others
+                BtChaterLog.d(TAG, "onOptionsItemSelected()>> start discoverable");
                 ensureDiscoverable();
                 return true;
             }

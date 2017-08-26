@@ -24,7 +24,7 @@ import android.view.MenuItem;
 import android.widget.ViewAnimator;
 
 import com.radioyps.common.activities.SampleActivityBase;
-import com.radioyps.common.logger.Log;
+import com.radioyps.common.logger.BtChaterLog;
 import com.radioyps.common.logger.LogFragment;
 import com.radioyps.common.logger.LogWrapper;
 import com.radioyps.common.logger.MessageOnlyLogFilter;
@@ -40,7 +40,7 @@ public class MainActivity extends SampleActivityBase {
 
     public static final String TAG = "MainActivity";
 
-    // Whether the Log Fragment is currently shown
+    // Whether the BtChaterLog Fragment is currently shown
     private boolean mLogShown;
 
     @Override
@@ -93,8 +93,8 @@ public class MainActivity extends SampleActivityBase {
     public void initializeLogging() {
         // Wraps Android's native log framework.
         LogWrapper logWrapper = new LogWrapper();
-        // Using Log, front-end to the logging chain, emulates android.util.log method signatures.
-        Log.setLogNode(logWrapper);
+        // Using BtChaterLog, front-end to the logging chain, emulates android.util.log method signatures.
+        BtChaterLog.setLogNode(logWrapper);
 
         // Filter strips out everything except the message text.
         MessageOnlyLogFilter msgFilter = new MessageOnlyLogFilter();
@@ -105,6 +105,6 @@ public class MainActivity extends SampleActivityBase {
                 .findFragmentById(R.id.log_fragment);
         msgFilter.setNext(logFragment.getLogView());
 
-        Log.i(TAG, "Ready");
+        BtChaterLog.i(TAG, "Ready");
     }
 }
